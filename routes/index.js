@@ -15,4 +15,14 @@ router.get('/all', function(req, res, next) {
   res.render('all', { users: USERS });
 
 });
+router.get('/signup', function(req, res, next) {
+  res.render('signUp', { title: 'test' });
+});
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'test' });
+});
+
+//router.get('/api/users/profile', function(req, res, next) {
+  //res.render('index', { title: 'test' });
+//});
 module.exports = router;

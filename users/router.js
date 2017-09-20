@@ -7,9 +7,11 @@ const {User} = require('./models');
 const router = express.Router();
 
 const jsonParser = bodyParser.json();
-
+router.use(bodyParser.urlencoded({ extended: true })); 
+router.use(bodyParser.json());
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
+  console.log(req.body)
   const requiredFields = ['username', 'password'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
@@ -142,5 +144,15 @@ router.get('/', (req, res) => {
     .then(users => res.json(users.map(user => user.apiRepr())))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
+
+router.get('/profile',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+        //return res.json({
+          res.render('index', { title: 'test' });
+          //  data: 'profile'
+        //});
+    }
+);
 
 module.exports = {router};
